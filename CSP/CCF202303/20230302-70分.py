@@ -8,11 +8,13 @@ if __name__ == "__main__":
         cli.append(c)
     total = max(tli)  # 总耗时
     totalc = sum(cli)   # 降低一天所需的最少资源
-    while m - totalc > 0 and total > k:
+    while m > 0 and total > k:
         for i in range(n):
             if tli[i] == total:
                 tli[i] -= 1
                 m -= cli[i]
+        if m < 0:
+            break
         total = max(tli)
     print(total)     # 最少耗时
 
