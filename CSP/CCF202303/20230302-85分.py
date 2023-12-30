@@ -13,7 +13,7 @@ if __name__ == "__main__":
     total = max(tli)    # 最长用时
     csum = sum(cli)     # 全部区域缩短一天所需资源数
     keys = sorted(tcdic.keys())     # 用时类别
-    while m >= 0 and total > k:     # 从大到小依次遍历，叠加耗费的资源
+    while m > 0 and total > k:     # 从大到小依次遍历，叠加耗费的资源
         now = keys.pop()
         if keys:
             nex = keys.pop()
@@ -21,7 +21,10 @@ if __name__ == "__main__":
         else:
             nex = now - 1
             tcdic[nex] = csum
-        m = m - tcdic[now] * (now - nex)    # 从now到next花费代价后剩下的资源
-        total = now
+        m = m - tcdic[now] * (now - nex)    # 从now到next花费代价后剩下的资源 ，bug所在。有可能->now-1满足，但->nex不满足
+        if m < 0:
+            break
+        total = nex
         keys.append(nex)
+        # print("m:", m, "\t total:", total, "\t keys:", keys, "\t tcdic:", tcdic)
     print(total)

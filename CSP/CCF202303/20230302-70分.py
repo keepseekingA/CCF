@@ -17,4 +17,3 @@ if __name__ == "__main__":
             break
         total = max(tli)
     print(total)     # 最少耗时
-
